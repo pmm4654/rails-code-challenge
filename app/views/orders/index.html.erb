@@ -4,11 +4,7 @@
   </head>
   <body>
     <h1>Orders</h1>
-
-    <ul>
-    <% @orders.each do |order| %>
-      <li><%= link_to order.id, order_path(order) %></li>
-    <% end %>
-    </ul>
+    <%= render partial: 'orders_table', locals: {orders: @orders.shipped, shipped: true} %>
+    <%= render partial: 'orders_table', locals: {orders: @orders.unshipped, shipped: false} %>
   </body>
 </html>

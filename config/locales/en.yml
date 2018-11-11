@@ -30,4 +30,9 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  orders:
+    table_name: 'Orders'
+    shipped_orders: 'Shipped Orders'
+    unshipped_orders: 'Unshipped Orders'
+    order_id: 'Order ID'
+    shipped_at: 'Shipped At'

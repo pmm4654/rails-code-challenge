@@ -1,0 +1,19 @@
+<h2><%= order_table_name(shipped) %></h2>
+<table id="<%= order_table_id(shipped) %>">
+  <thead>
+    <th><%= t('orders.order_id') %></th>
+    <% if shipped %>
+      <th><%= t('orders.shipped_at') %></th>
+    <% end %>
+  </thead>
+  <tbody>
+    <% orders.find_each do |order| %>
+    <tr class="order_row">  
+      <td><%= link_to order.id, order_path(order) %></td>
+      <% if shipped %>
+        <td><%= order.shipped_at.to_formatted_s(:long) %></td>
+      <% end %>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
