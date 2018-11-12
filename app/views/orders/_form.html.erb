@@ -1,0 +1,48 @@
+<%= form_with(model: order, local: true) do |form| %>
+  <% if order.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(order.errors.count, "error") %> prohibited this order from being saved:</h2>
+
+      <ul>
+      <% order.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= button_tag t('line_items.add_item'), id: 'add_item' %>
+<table>
+  <thead>  
+    <th><%= t('line_items.widget') %></th>
+    <th><%= t('line_items.quantity') %></th>
+    <th><%= t('line_items.unit_price') %></th>
+    <th></th>
+  </thead>
+  <tbody id="line_items_container">
+    <%= form.fields_for :line_items do |line_item_form| %>
+      <%= render "line_items/form", _form: line_item_form %>
+    <% end %> 
+  </tbody>
+</table>
+
+
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+
+
+<%= content_for(:script) do %>
+<script>
+  $(document).ready(function() {
+    $('#add_item').on('click', add_line_item);
+  })
+
+  function add_line_item(e) {
+    e.preventDefault();
+    $.get("<%= add_line_item_orders_path %>")
+  }
+</script>
+<% end %>
