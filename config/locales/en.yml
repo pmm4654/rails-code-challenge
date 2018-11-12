@@ -30,9 +30,23 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  back: 'Back'
+
+  line_items:
+    add_item: 'Add Item'
+    quantity: 'Quantity'
+    unit_price: 'Unit Price'
+    widget_prompt: 'Widget prompt placeholder'
+
   orders:
-    table_name: 'Orders'
-    shipped_orders: 'Shipped Orders'
-    unshipped_orders: 'Unshipped Orders'
+    create_success_flash_notification: 'Your order was successfully created.'
+    edit: 'Edit Order'
+    new: 'New Order'
     order_id: 'Order ID'
     shipped_at: 'Shipped At'
+    shipped_orders: 'Shipped Orders'
+    table_name: 'Orders'
+    unshipped_orders: 'Unshipped Orders'
+    update_success_flash_notification: 'Your order was successfully updated.'
+    widget: 'Item'
+
