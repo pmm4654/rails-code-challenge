@@ -21,6 +21,13 @@ RSpec.describe OrdersController, type: :request do
     end
   end
 
+  describe '#add_line_item' do
+    it 'should return a new group of inputs for a new line item' do
+      get '/orders/add_line_item.js', xhr: true
+      expect(response.body).to include('line_item_form')
+    end
+  end
+
   def count_orders(shipped: true)
     Nokogiri.parse(response.body).css("#{table_id_selector(shipped: shipped)} > tbody > tr.order_row").count
   end
