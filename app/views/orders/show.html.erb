@@ -7,6 +7,23 @@
 
     <p>Created <%= @order.created_at %></p>
     <p>Shipped <%= @order.shipped_at %></p>
+
+    <table>
+    <thead>
+      <th><%= t('line_items.widget') %></th>
+      <th><%= t('line_items.quantity') %></th>
+      <th><%= t('line_items.unit_price') %></th>      
+    </thead>
+    <tbody>  
+      <% @order.line_items.each do |line_item| %>
+      <tr>  
+        <td><%= line_item.widget.name %></td>
+        <td><%= line_item.quantity %></td>
+        <td><%= line_item.unit_price %></td>
+      </tr>
+      <% end %>
+    </tbody>
     
+    </table>
   </body>
 </html>
