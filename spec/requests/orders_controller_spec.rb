@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe OrdersController, type: :request do
-  describe '#index' do
+  describe 'GET#index' do
     let!(:unshipped_orders) { FactoryBot.create_list(:order, 2) }
     let!(:shipped_order) { FactoryBot.create_list(:order, 1, :shipped) }
 
@@ -13,7 +13,7 @@ RSpec.describe OrdersController, type: :request do
     end
   end
 
-  describe '#show' do
+  describe 'GET#show' do
     let(:order) { Order.create! }
     it 'should show order details' do
       get "/orders/#{order.id}"
@@ -21,7 +21,7 @@ RSpec.describe OrdersController, type: :request do
     end
   end
 
-  describe '#add_line_item' do
+  describe '#GETadd_line_item' do
     it 'should return a new group of inputs for a new line item' do
       get '/orders/add_line_item.js', xhr: true
       expect(response.body).to include('line_item_form')
