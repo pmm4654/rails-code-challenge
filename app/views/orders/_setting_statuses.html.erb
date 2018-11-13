@@ -1,0 +1,11 @@
+<% unless order.new_record? %>
+  <% Order::SETTING_ACCESSOR_WHITELIST.each do |setting| %>
+    <p>  
+    <%= link_to order_status_link_text(order, setting), update_settings_order_path(order, setting: setting),
+          remote: true, 
+          method: :patch, 
+          data: {confirm: t('orders.update_status_confirmation') } %>
+      : <%= order.send(setting) ? 'Yes' : 'No' %>
+    </p>
+  <% end %>
+<% end %>

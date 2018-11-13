@@ -12,6 +12,9 @@
   <% end %>
 
   <%= button_tag t('line_items.add_item'), id: 'add_item' %>
+  <div id="setting_toggle_container">  
+    <%= render partial: 'orders/setting_statuses', locals: { order: @order } %>
+  </div>
 <table>
   <thead>  
     <th><%= t('line_items.widget') %></th>

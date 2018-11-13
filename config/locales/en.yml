@@ -44,11 +44,16 @@ en:
     new: 'New Order'
     no_line_items: 'This order has no line items.'
     order_id: 'Order ID'
+    settings:
+        expedite: 'Expedited?'
+        warehouse: 'Warehoused?'
+        returns: 'Returnable?' 
     shipped_at: 'Shipped At'
     shipped_orders: 'Shipped Orders'
     table_name: 'Orders'
     title: 'Order %{id}'
     unshipped_orders: 'Unshipped Orders'
+    update_status_confirmation: 'Are you sure you want to update this status?'
     update_success_flash_notification: 'Your order was successfully updated.'
     widget: 'Item'
 

@@ -32,7 +32,7 @@ class Order < ApplicationRecord
 
   private
   def valid_setting?(type)
-    SETTING_ACCESSOR_WHITELIST.include?(type)
+    SETTING_ACCESSOR_WHITELIST.include?(type.to_sym)
   end
 
 end
