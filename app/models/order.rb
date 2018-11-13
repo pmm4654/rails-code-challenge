@@ -5,18 +5,21 @@ class Order < ApplicationRecord
   scope :shipped, -> (direction = :desc) { where.not(shipped_at: nil).order(shipped_at: direction) }
   scope :unshipped, -> { where(shipped_at: nil) }
 
+
+  SETTING_ACCESSOR_WHITELIST = %i[expedite returns warehouse]
+
+  store_accessor :settings, SETTING_ACCESSOR_WHITELIST
   def expedited?
-    @expedite
+    !!expedite
   end
 
   def returnable?
-    @returns
+    !!returns
   end
 
-  def settings(opts = {})
-    @expedite = opts[:expedite].presence
-    @returns = opts[:returns].presence
-    @warehouse = opts[:warehouse].presence
+  def update_settings!(type, value)
+    send("#{type}=", value) if valid_setting?(type)
+    save
   end
 
   def shipped?
@@ -24,6 +27,13 @@ class Order < ApplicationRecord
   end
 
   def warehoused?
-    @warehouse
+    !!warehouse
   end
+
+  private
+  def valid_setting?(type)
+    SETTING_ACCESSOR_WHITELIST.include?(type.to_sym)
+  end
+
 end
+

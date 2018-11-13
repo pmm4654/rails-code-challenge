@@ -10,4 +10,8 @@ module OrdersHelper
     t('orders.unshipped_orders')
   end
 
+  def order_status_link_text(order, setting)
+    t("orders.settings.#{setting}")
+  end
+
 end
