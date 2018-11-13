@@ -14,7 +14,7 @@ RSpec.describe OrdersController, type: :request do
   end
 
   describe 'GET#show' do
-    let(:order) { Order.create! }
+    let(:order) { FactoryBot.create(:order)  }
     it 'should show order details' do
       get "/orders/#{order.id}"
       expect(response.body).to include("Order #{order.id}")
@@ -26,6 +26,30 @@ RSpec.describe OrdersController, type: :request do
       get '/orders/add_line_item.js', xhr: true
       expect(response.body).to include('line_item_form')
     end
+  end
+
+  describe 'GET#edit' do
+    let!(:order) { FactoryBot.create(:order) }
+    let!(:widget) { FactoryBot.create(:widget, :cheap) }
+    let!(:line_items) { FactoryBot.create_list(:line_item, 2, order: order, widget: widget) }
+    it 'should return 2 line items and return a 200 status' do
+      get "/orders/#{order.id}/edit"
+      expect(count_line_items).to eq(2)
+    end
+  end
+
+  describe 'GET#new' do
+    let!(:order) { FactoryBot.create(:order) }
+    it 'should return 1 line item row and return a 200 status' do
+      get "/orders/new"
+      expect(count_line_items).to eq(1)
+    end
+  end  
+
+
+
+  def count_line_items
+    Nokogiri.parse(response.body).css(".line_item_form").count
   end
 
   def count_orders(shipped: true)
