@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe OrdersController, type: :request do
+RSpec.describe LineItemsController, type: :request do
   
   describe 'DELETE#destroy' do
     let(:widget) { FactoryBot.create(:widget, :cheap) }
