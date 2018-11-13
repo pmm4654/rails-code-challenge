@@ -21,7 +21,7 @@ RSpec.describe OrdersController, type: :request do
     end
   end
 
-  describe '#GETadd_line_item' do
+  describe 'GET#add_line_item' do
     it 'should return a new group of inputs for a new line item' do
       get '/orders/add_line_item.js', xhr: true
       expect(response.body).to include('line_item_form')
