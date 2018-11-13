@@ -18,18 +18,30 @@ RSpec.describe Order, type: :model do
     it { is_expected.to respond_to(:settings) }
 
     context 'when expedite is present' do
-      before { subject.settings(expedite: true) }
+      before { subject.update_settings!(:expedite, true) }
       it { is_expected.to be_expedited }
     end
 
     context 'when returns is present' do
-      before { subject.settings(returns: true) }
+      before { subject.update_settings!(:returns, true) }
       it { is_expected.to be_returnable }
     end
 
     context 'when warehouse is present' do
-      before { subject.settings(warehouse: true) }
+      before { subject.update_settings!(:warehouse, true) }
       it { is_expected.to be_warehoused }
     end
+
+    Order::SETTING_ACCESSOR_WHITELIST.each do |valid_accessor|
+      context "#{valid_accessor} toggling" do
+        it 'should be able to go from true, back to false' do
+          [true, false].each do |expectation|
+            subject.update_settings!(valid_accessor, expectation)
+            expect(subject.reload.send(valid_accessor)).to eq(expectation)
+          end
+        end
+      end
+    end
+    
   end
 end

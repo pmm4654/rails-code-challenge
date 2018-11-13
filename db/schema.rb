@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_19_211334) do
+ActiveRecord::Schema.define(version: 2018_11_13_222319) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "hstore"
   enable_extension "plpgsql"
 
   create_table "line_items", force: :cascade do |t|
@@ -30,6 +31,7 @@ ActiveRecord::Schema.define(version: 2018_10_19_211334) do
     t.datetime "shipped_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.json "settings", default: {}
   end
 
   create_table "widgets", force: :cascade do |t|
