@@ -28,6 +28,20 @@ RSpec.describe OrdersController, type: :request do
     let(:widget) { FactoryBot.create(:widget, :cheap) }
     let(:order) { FactoryBot.create(:order)  }
     let!(:line_item) { FactoryBot.create(:line_item, order: order, widget: widget, quantity: 2) }
+
+    Order::SETTING_ACCESSOR_WHITELIST.each do |setting|
+      it 'should have the "Orders" title and order id on the page' do
+        patch("/orders/#{order.id}/update_settings.js", params: {setting: setting})
+        expect(order.reload.send(setting)).to eq(true)
+      end
+    end
+  end
+
+
+  describe 'PATCH#update' do
+    let(:widget) { FactoryBot.create(:widget, :cheap) }
+    let(:order) { FactoryBot.create(:order)  }
+    let!(:line_item) { FactoryBot.create(:line_item, order: order, widget: widget, quantity: 2) }
     let(:order_and_line_item_params) do
       {
         "order"=>
