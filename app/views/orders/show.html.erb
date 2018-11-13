@@ -1,12 +1,38 @@
-<html>
-  <head>
-    <title>Order <%= @order.id %></title>
-  </head>
-  <body>
-    <h1>Order <%= @order.id %></h1>
+<%= content_for(:title) do %>
+  <%= t('orders.title', id: @order.id) %>
+<% end %>
 
-    <p>Created <%= @order.created_at %></p>
-    <p>Shipped <%= @order.shipped_at %></p>
+<body>
+  <h1>
+    <%= t('orders.title', id: @order.id) %>
+    <%= link_to t('order.edit'), edit_order_path(@order) %>
+  </h1>
+
+  <p>Created <%= @order.created_at %></p>
+  <p>Shipped <%= @order.shipped_at %></p>
+
+  <% if @order.line_items.present? %>
+    <table>
+      <thead>
+        <th><%= t('line_items.widget') %></th>
+        <th><%= t('line_items.quantity') %></th>
+        <th><%= t('line_items.unit_price') %></th>      
+      </thead>
+      <tbody>  
+        <% @order.line_items.each do |line_item| %>
+        <tr>  
+          <td><%= line_item.widget.name %></td>
+          <td><%= line_item.quantity %></td>
+          <td><%= line_item.unit_price %></td>
+        </tr>
+        <% end %>
+      </tbody>
     
-  </body>
-</html>
+    </table>
+  <% else %>
+    <h3>
+      <%= t('orders.no_line_items') %>        
+    </h3>  
+  <% end %>
+</body>
+

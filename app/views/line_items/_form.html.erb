@@ -1,0 +1,18 @@
+<tr class="line_item_form" id="<%= line_items_row_id(_form.object) %>">
+
+  <td>
+    <%= _form.select :widget_id, options_for_select(Widget.select_options, _form.object.widget_id), {prompt: t('line_items.widget_prompt'), selected: :widget_id } %>
+  </td>
+
+  <td>  
+    <%= _form.number_field :quantity, min: 1, required: true %>
+  </td>
+
+  <td>
+    <%= _form.number_field :unit_price, min: 1, required: true %>  
+  </td>
+
+  <td>
+    <%= line_items_removal_link(_form.object) %>    
+    </td>
+</tr>
