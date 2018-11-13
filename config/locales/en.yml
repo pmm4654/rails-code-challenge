@@ -41,6 +41,7 @@ en:
   orders:
     create_success_flash_notification: 'Your order was successfully created.'
     edit: 'Edit Order'
+    invalid_setting: 'The setting you tried to update is invalid.'
     new: 'New Order'
     no_line_items: 'This order has no line items.'
     order_id: 'Order ID'

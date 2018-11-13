@@ -1,1 +1,5 @@
-$('#setting_toggle_container').html("<%= j render partial: 'orders/setting_statuses', locals: { order: @order } %>")
+<% if @successful_save %>
+  $('#setting_toggle_container').html("<%= j render partial: 'orders/setting_statuses', locals: { order: @order } %>")
+<% else %>
+  alert('<%= t('orders.invalid_setting') %>')
+<% end %>

@@ -15,7 +15,7 @@ class OrdersController < ApplicationController
 
   def update_settings
     setting_type = order_status_params[:setting]
-    @order.update_settings!(order_status_params[:setting], !@order.send(setting_type))
+    @successful_save = @order.update_settings!(order_status_params[:setting], !@order.send(setting_type))
   end
 
   def add_line_item
