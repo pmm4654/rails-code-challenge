@@ -5,11 +5,47 @@ RSpec.describe OrdersController, type: :request do
     let!(:unshipped_orders) { FactoryBot.create_list(:order, 2) }
     let!(:shipped_order) { FactoryBot.create_list(:order, 1, :shipped) }
 
-    it 'should have the "Orders" title and order id on the page' do 
+    it 'should have shipped and unshipped order lists' do 
       get '/orders'
       expect_shipped_and_unshipped_tables_to_be_present
       expect_order_table_to_have_orders(shipped: true)
       expect_order_table_to_have_orders(shipped: false)
+    end
+  end
+
+  describe 'PUT#create' do
+    let(:widget) { FactoryBot.create(:widget, :cheap) }
+    it 'should have the "Orders" title and order id on the page' do 
+      params = {"order"=>{
+                  "line_items_attributes"=>{"0"=>{"widget_id"=>"#{widget.id}", "quantity"=>"21", "unit_price"=>"12"}}}}
+      expect_to_create_an_order_with_1_line_item do
+        post("/orders", params: params)
+      end
+    end
+  end
+
+  describe 'PATCH#update' do
+    let(:widget) { FactoryBot.create(:widget, :cheap) }
+    let(:order) { FactoryBot.create(:order)  }
+    let!(:line_item) { FactoryBot.create(:line_item, order: order, widget: widget, quantity: 2) }
+    let(:order_and_line_item_params) do
+      {
+        "order"=>
+        {
+          "line_items_attributes"=>
+          {
+            "#{line_item.id}"=>
+            {
+              "widget_id"=>"#{widget.id}", "quantity"=>"33", "unit_price"=>"12", "id" => "#{line_item.id}"
+            }
+          }
+        }
+      }
+    end
+
+    it 'should have the "Orders" title and order id on the page' do
+      patch("/orders/#{order.id}", params: order_and_line_item_params)
+      expect(line_item.reload.quantity).to eq(33)
     end
   end
 
@@ -46,7 +82,13 @@ RSpec.describe OrdersController, type: :request do
     end
   end  
 
-
+  def expect_to_create_an_order_with_1_line_item(&blk)
+    expect(Order.count).to eq(0)
+    expect(LineItem.count).to eq(0)
+    yield
+    expect(LineItem.count).to eq(1)
+    expect(Order.count).to eq(1)
+  end
 
   def count_line_items
     Nokogiri.parse(response.body).css(".line_item_form").count
