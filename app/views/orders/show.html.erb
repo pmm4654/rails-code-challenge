@@ -8,8 +8,7 @@
     <%= link_to t('order.edit'), edit_order_path(@order) %>
   </h1>
 
-  <p>Created <%= @order.created_at %></p>
-  <p>Shipped <%= @order.shipped_at %></p>
+  <p> <%= "#{t('orders.shipped_at')} #{@order.shipped_at}" if @order.shipped_at.present? %></p>
 
   <% if @order.line_items.present? %>
     <table>

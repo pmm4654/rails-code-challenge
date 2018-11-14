@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     end
     member do
       patch :update_settings
+      patch :ship
     end
     resources :line_items, only: [:destroy]
   end

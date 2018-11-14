@@ -22,6 +22,11 @@ class Order < ApplicationRecord
     save
   end
 
+  def ship!
+    self.shipped_at = DateTime.now
+    save
+  end
+
   def shipped?
     shipped_at.present?
   end

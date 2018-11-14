@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   
-  before_action :set_order, only: [:new, :add_line_item, :show, :create, :update, :update_settings ]
+  before_action :set_order, only: [:new, :add_line_item, :show, :create, :update, :update_settings, :ship ]
 
   def index
     @order_title = <<-ASCII_ART    
@@ -20,6 +20,11 @@ class OrdersController < ApplicationController
 
   def new
     @order.line_items.build
+  end
+
+  def ship
+    @successful_save = @order.ship!
+    render 'update_settings', formats: :js
   end
 
   def update_settings

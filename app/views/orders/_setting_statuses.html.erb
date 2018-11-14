@@ -1,10 +1,19 @@
 <% unless order.new_record? %>
+<% if order.shipped? %>
+  <%= "#{t('orders.shipped_at')} #{order.shipped_at.to_formatted_s(:long)}" if order.shipped_at.present? %>
+<% else %>
+  <%= link_to t('orders.ship_now'), ship_order_path(order), 
+      remote: true, 
+      method: :patch, 
+      class: 'button',
+      data: { confirm: t('orders.ship_now_confirmation') } %>
+<% end %>
   <% Order::SETTING_ACCESSOR_WHITELIST.each do |setting| %>
     <p>  
     <%= link_to order_status_link_text(order, setting), update_settings_order_path(order, setting: setting),
           remote: true, 
           method: :patch, 
-          data: {confirm: t('orders.update_status_confirmation') } %>
+          data: { confirm: t('orders.update_status_confirmation') } %>
       : <%= order.send(setting) ? 'Yes' : 'No' %>
     </p>
   <% end %>

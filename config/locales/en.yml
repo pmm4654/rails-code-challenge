@@ -50,6 +50,8 @@ en:
         warehouse: 'Warehoused?'
         returns: 'Returnable?' 
     shipped_at: 'Shipped At'
+    ship_now: 'Ship Now'
+    ship_now_confirmation: 'You are about to set this order as shipped.  This action is irreversible.  Are you sure?'
     shipped_orders: 'Shipped Orders'
     table_name: 'Orders'
     title: 'Order %{id}'
