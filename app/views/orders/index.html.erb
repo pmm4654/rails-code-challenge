@@ -1,10 +1,7 @@
-<html>
-  <head>
-    <title>Orders</title>
-  </head>
-  <body>
-    <h1>Orders</h1>
+<%= content_for(:title) do %>
+  <%= t('orders.orders') %>
+<% end %>
+    <pre><%= @order_title %></pre>
     <%= render partial: 'orders_table', locals: {orders: @orders.shipped, shipped: true} %>
     <%= render partial: 'orders_table', locals: {orders: @orders.unshipped, shipped: false} %>
-  </body>
-</html>
+

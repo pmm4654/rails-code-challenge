@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root to: 'orders#index'
   resources :orders do
     collection do
       get :add_line_item
