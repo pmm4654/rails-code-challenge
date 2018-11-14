@@ -3,6 +3,15 @@ class OrdersController < ApplicationController
   before_action :set_order, only: [:new, :add_line_item, :show, :create, :update, :update_settings ]
 
   def index
+    @order_title = <<-ASCII_ART    
+#######                                    
+#     # #####  #####  ###### #####   ####  
+#     # #    # #    # #      #    # #      
+#     # #    # #    # #####  #    #  ####  
+#     # #####  #    # #      #####       # 
+#     # #   #  #    # #      #   #  #    # 
+####### #    # #####  ###### #    #  #### 
+    ASCII_ART
     @orders = Order.all
   end
 
